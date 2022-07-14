@@ -2,7 +2,8 @@
 
 /* Custom properties/variables  */
 :root {
-  --main-white: #f0f0f0;
+  --main-white: #a6a6a6;
+  --navbar-white: #f1f0f0;
   --main-red: #be3144;
   --main-blue: #45567d;
   --main-gray: #303841;
@@ -135,12 +136,12 @@ img {
 }
 
 nav h1 {
-    color: var(--main-white);
+    color: var(--navbar-white);
     justify-self: left;
   }
   
 nav a {
-color: var(--main-white);
+color: var(--navbar-white);
 transition: var(--transition);
 }
 nav a:hover {
@@ -383,7 +384,7 @@ footer i {
     align-items: center;
     justify-content: center;
     gap: 2.5rem;
-    max-width: 68.75rem;
+    max-width: 90rem;
     margin: auto;
   }
 
@@ -393,7 +394,7 @@ width: 37.5rem;
 }
 
 .bio {
-width: 25rem;
+width: 80rem;
 padding: 0.625rem;
 border-radius: 6px;
 box-shadow: 0px 2px 15px 2px var(--primary-shadow);
@@ -404,7 +405,8 @@ margin-bottom: var(--bottom-margin);
 }
 
 .bio p {
-line-height: var(--line-height);
+font-size: 1.5rem;
+line-height: 3rem;
 padding: 0.3rem 0;
 }
 
@@ -470,6 +472,8 @@ font-size: 64px;
   
   .project-details {
     margin-bottom: var(--bottom-margin);
+    list-style-type: circle;
+
   }
   
   .project-card {
@@ -478,7 +482,12 @@ font-size: 64px;
     box-shadow: 0 3px 10px var(--primary-shadow);
     padding: 20px;
     margin: 10px;
+    
   }
+
+.project-pic{
+  height: 20rem;
+}
 
   .socials {
     display: flex;
