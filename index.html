@@ -20,6 +20,8 @@
         sizes="32x32"
         href="assets/favicon-32x32.png"
         />
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
+
 
         <!-- Animate CSS CDN -->
         <link
@@ -42,7 +44,7 @@
         <li><a href="#about" class="nav-link">About</a></li>
         <li><a href="#skills" class="nav-link">Skills</a></li>
         <li><a href="#projects" class="nav-link">Projects</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li><a href="mailto:gonzaleztye@gmail.com" class="nav-link">Contact</a></li>
       </ul>
       <button class="burger-menu" id="burger-menu">
         <ion-icon class="bars" name="menu-outline"></ion-icon>
@@ -67,24 +69,32 @@
     <section class="skills" id="skills">
       <h2 class="skill-header">My Top Skills</h2>
 
-      <div class="skills-wrapper">
+      
         <div class="first-set animate__animated animate__pulse">
           
-          <!-- insert first row of icons -->
-          <ion-icon name="logo-python" loading="lazy"
-          class="icon icon-card"></ion-icon>
-          <ion-icon name="flask-outline" loading="lazy"
-          class="icon icon-card"></ion-icon>
+          <div class="skills-wrapper">
+            
+            <div class="skill">
+              <ion-icon name="logo-python" loading="lazy"> </ion-icon> 
+              <h2>Python</h2>
+            </div>
+            <div class="skill">
+              <ion-icon name="flask-outline" loading="lazy"></ion-icon>
+              <h2>Bioinformatics</h2>
+            </div>
+            <div class="skill">
+              <ion-icon name="logo-html5" loading="lazy"> </ion-icon> 
+              <h2>HTML</h2>
+            </div>
+            <div class="skill">
+              <ion-icon name="hardware-chip-outline" loading="lazy"></ion-icon>
+              <h2>Machine Learning</h2>
+            </div>
+    
+          
         </div>
 
-        <div class="second-set animate__animated animate__pulse">
-          <!-- second row of icons -->
-          <ion-icon name="logo-html5" loading="lazy"
-          class="icon icon-card"></ion-icon>
-          <ion-icon name="hardware-chip-outline" loading="lazy"
-          class="icon icon-card"></ion-icon>
         
-        </div>
       </div>
     </section>
 
@@ -146,9 +156,7 @@
     <footer>
       <p class="copy">&copy; Copyright 2021</p>
       <p class="copy">
-        Built with &#x2661; by
-        <a href="https://twitter.com/koladechris" target="_blank"
-          >Kolade Chris (Ksound)</a>
+        Built by Tye Gonzalez
       </p>
     
     

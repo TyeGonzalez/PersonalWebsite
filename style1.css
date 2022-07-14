@@ -409,6 +409,14 @@ font-size: 1.5rem;
 line-height: 3rem;
 padding: 0.3rem 0;
 }
+.skill {
+  background-color: #fff;
+  border-radius: 11px;
+  box-shadow: 0 3px 10px var(--secondary-shadow);
+  padding: 20px;
+  margin: 10px;
+}
+
 
 .skills {
     max-width: 68.75rem;
@@ -498,8 +506,8 @@ font-size: 64px;
   }
   
   .socicon {
-    width: 2rem;
-    height: 2rem;
+    width: 5rem;
+    height: 5rem;
   }
 
   footer {
