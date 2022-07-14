@@ -508,3 +508,10 @@ font-size: 64px;
     text-align: center;
     margin: 2rem 0 0;
   }
+
+  .image {
+    width: 50rem;
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  }
