@@ -385,7 +385,7 @@ footer i {
     align-items: center;
     justify-content: center;
     gap: 2.5rem;
-    max-width: 90rem;
+    max-width: 85rem;
     margin: auto;
   }
 
@@ -395,7 +395,7 @@ width: 37.5rem;
 }
 
 .bio {
-width: 80rem;
+width: 60rem;
 padding: 0.625rem;
 border-radius: 6px;
 box-shadow: 0px 2px 15px 2px var(--primary-shadow);
@@ -417,7 +417,13 @@ padding: 0.3rem 0;
   padding: 20px;
   margin: 10px;
 }
-
+.skill:hover {
+  background-color: rgb(244, 244, 244);
+  border-radius: 11px;
+  box-shadow: 0 3px 10px var(--secondary-shadow);
+  padding: 20px;
+  margin: 10px;
+}
 
 .skills {
     max-width: 68.75rem;
@@ -509,6 +515,11 @@ font-size: 64px;
   .socicon {
     width: 5rem;
     height: 5rem;
+  }
+
+  .socicon:hover {
+    background-color: rgb(244, 244, 244);
+    border-radius: 6px;
   }
 
   footer {
