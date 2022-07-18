@@ -359,10 +359,7 @@ footer i {
 }
 
 @media (max-width: 28.75em) {
-  footer {
-    flex-direction: column;
-    text-align: center;
-  }
+
 }
 /* Hero section */
 .hero {
@@ -541,9 +538,9 @@ font-size: 64px;
 
 
 /* 1200px / 16px = 75em */
-@media screen and (max-width: 75em) {
+@media screen and (max-width: 50em) {
   html {
-    font-size: 60%;
+    font-size: 40%;
   }
   nav{
     padding: 1.5rem 1rem;
@@ -599,6 +596,11 @@ nav ul.show {
     font-size: 2rem; 
     line-height: 1.5rem;
     padding: 0.2rem 0;
+    }
+
+    footer {
+      flex-direction: column;
+      text-align: center;
     }
 }
 
