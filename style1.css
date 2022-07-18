@@ -92,7 +92,7 @@ h2 {
 }
 
 h1 {
-  font-size: 6rem;
+  font-size: 5rem;
 }
 
 h2 {
@@ -540,7 +540,7 @@ font-size: 64px;
 /* 1200px / 16px = 75em */
 @media screen and (max-width: 50em) {
   html {
-    font-size: 40%;
+    font-size: 30%;
   }
 
   nav{
@@ -550,12 +550,12 @@ font-size: 64px;
   h2 {
     font-size: 3rem;
   }
-  h1 {
+  /* h1 {
     font-size: 2rem;
 }
   nav h1 {
     font-size: 3rem;
-  }
+  } */
 
   nav ul {
     position: fixed;
