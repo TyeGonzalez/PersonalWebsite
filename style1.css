@@ -550,6 +550,10 @@ font-size: 64px;
     font-size: 3rem;
   }
 
+  nav h1 {
+    font-size: 3rem;
+  }
+  
   nav ul {
     position: fixed;
     background-color: var(--main-red);
