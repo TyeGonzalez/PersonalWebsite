@@ -61,26 +61,17 @@ html {
  * 980px / 16px = 61.25em
 */
 
-/* 1200px / 16px = 75em */
-@media (max-width: 75em) {
-  html {
-    font-size: 60%;
+.burger-menu {
+  color: var(--primary-color);
+  font-size: 2rem;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  display: none;
   }
-}
 
-/* 980px / 16px = 61.25em */
-@media (max-width: 61.25em) {
-  html {
-    font-size: 58%;
-  }
-}
 
-/* 460px / 16px = 28.75em */
-@media (max-width: 28.75em) {
-  html {
-    font-size: 55%;
-  }
-}
+
 
 
 /* Base styles */
@@ -154,20 +145,14 @@ nav ul {
 display: flex;
 gap: 1.9rem;
 padding-right: 3rem;
+
 }
 
 nav ul li {
 font-weight: var(--bold-font);
+margin: 0.5rem;
+color: var(--main-white);
 }
-
-.burger-menu {
-    color: var(--primary-color);
-    font-size: 2rem;
-    border: 0;
-    background-color: transparent;
-    cursor: pointer;
-    display: none;
-  }
 
 .nav-list {
   display: flex;
@@ -384,10 +369,10 @@ footer i {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2.5rem;
-    max-width: 85rem;
-    margin: auto;
-  }
+    gap: 5rem;
+    /* max-width: 85rem; */
+    margin: auto 10rem;
+    }
 
 .hero img {
 /* height: 37.5rem; */
@@ -399,6 +384,7 @@ width: 60rem;
 padding: 0.625rem;
 border-radius: 6px;
 box-shadow: 0px 2px 15px 2px var(--primary-shadow);
+max-height: 62rem;
 }
 
 .bio h1 {
@@ -488,6 +474,7 @@ font-size: 64px;
   .project-details {
     margin-bottom: var(--bottom-margin);
     list-style-type: circle;
+    margin: 10px;
 
   }
   
@@ -535,3 +522,76 @@ font-size: 64px;
   margin-left: auto;
   margin-right: auto;
   }
+
+  .scroll-up {
+    position: fixed;
+    right: 0.5%;
+    bottom: 3%;
+    cursor: pointer;
+  }
+  
+  .up-arrow {
+    width: 5rem;
+    height: 5rem;
+  }
+
+
+
+
+
+/* 1200px / 16px = 75em */
+@media screen and (max-width: 75em) {
+  nav{
+    padding: 1.5rem 1rem;
+  }
+
+  nav ul {
+    position: fixed;
+    background-color: var(--main-red);
+    flex-direction: column;
+    top: 86px;
+    left: 10%;
+    width: 80%;
+    text-align: center;
+    transform: translateX(120%);
+    transition: transform 0.5s ease-in;
+    border-radius: 1rem;
+  }
+  /* html {
+    font-size: 60%;
+  } */
+
+
+nav ul.show {
+  transform: translateX(0);
+}
+
+.burger-menu {
+    color: var(--navbar-white);
+    font-size: 2rem;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    display: block;
+  }
+
+  .hero img {
+    width: 15rem;
+  }
+
+  .bio {
+    max-height: 25rem;
+  }
+  
+  .bio p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: 0.2rem 0;
+    }
+    
+  .bio h1 {
+    font-size: 3rem;
+    line-height: 1.5rem;
+    padding: 0.2rem 0;
+    }
+}
