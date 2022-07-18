@@ -542,8 +542,15 @@ font-size: 64px;
 
 /* 1200px / 16px = 75em */
 @media screen and (max-width: 75em) {
+  html {
+    font-size: 60%;
+  }
   nav{
     padding: 1.5rem 1rem;
+  }
+
+  h2 {
+    font-size: 3rem;
   }
 
   nav ul {
@@ -558,9 +565,7 @@ font-size: 64px;
     transition: transform 0.5s ease-in;
     border-radius: 1rem;
   }
-  /* html {
-    font-size: 60%;
-  } */
+
 
 
 nav ul.show {
