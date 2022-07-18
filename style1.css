@@ -4,7 +4,7 @@
 :root {
   --main-white: #a6a6a6;
   --navbar-white: #f1f0f0;
-  --main-red: #be3144;
+  --main-red: #337b41;
   --main-blue: #45567d;
   --main-gray: #303841;
   --font-family: "Roboto", sans-serf;
@@ -376,11 +376,12 @@ footer i {
 
 .hero img {
 /* height: 37.5rem; */
-width: 37.5rem;
+max-width: 37.5rem;
+border-radius: 5%
 }
 
 .bio {
-width: 60rem;
+max-width: 60rem;
 padding: 0.625rem;
 border-radius: 6px;
 box-shadow: 0px 2px 15px 2px var(--primary-shadow);
@@ -575,7 +576,7 @@ nav ul.show {
     display: block;
   }
 
-  .hero img {
+  .hero-img {
     width: 15rem;
   }
 
@@ -584,14 +585,27 @@ nav ul.show {
   }
   
   .bio p {
-    font-size: 1rem;
+    font-size: 1.25rem;
     line-height: 1.5rem;
     padding: 0.2rem 0;
     }
     
-  .bio h1 {
-    font-size: 3rem;
+  .bio h2 {
+    font-size: 2rem; 
     line-height: 1.5rem;
     padding: 0.2rem 0;
     }
+}
+
+
+.row {
+  display: flex; /* equal height of the children */
+  align-items: center;
+
+}
+
+.col {
+  flex: 1; /* additionally, equal width */
+  padding: 1em;
+  border: solid;
 }
