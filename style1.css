@@ -369,6 +369,7 @@ footer i {
     gap: 5rem;
     /* max-width: 85rem; */
     margin: auto 10rem;
+    flex-wrap: wrap ;
     }
 
 .hero img {
@@ -379,7 +380,7 @@ border-radius: 5%
 
 .bio {
 max-width: 60rem;
-padding: 0.625rem;
+padding: 3rem;
 border-radius: 6px;
 box-shadow: 0px 2px 15px 2px var(--primary-shadow);
 max-height: 62rem;
@@ -540,7 +541,7 @@ font-size: 64px;
 /* 1200px / 16px = 75em */
 @media screen and (max-width: 50em) {
   html {
-    font-size: 30%;
+    font-size: 62.5%;
   }
 
   nav{
@@ -548,13 +549,13 @@ font-size: 64px;
   }
 
   h2 {
-    font-size: 3rem;
+    font-size: 1.8em;
   }
-  /* h1 {
-    font-size: 2rem;
+  h1 {
+        font-size: 2rem;
 }
   nav h1 {
-    font-size: 3rem;
+    font-size: 2rem;
   } */
 
   nav ul {
@@ -586,21 +587,18 @@ nav ul.show {
   }
 
   .hero-img {
-    width: 15rem;
+    max-width: 32rem;
   }
 
-  .bio {
-    max-height: 25rem;
-  }
-  
+ 
   .bio p {
-    font-size: 1.25rem;
-    line-height: 1.5rem;
-    padding: 0.2rem 0;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    padding: 0.2rem 0.2;
     }
     
   .bio h2 {
-    font-size: 2rem; 
+    font-size: 1.8rem; 
     line-height: 1.5rem;
     padding: 0.2rem 0;
     }
@@ -615,6 +613,7 @@ nav ul.show {
 .row {
   display: flex; /* equal height of the children */
   align-items: center;
+  flex-wrap: wrap;
 
 }
 
