@@ -545,6 +545,10 @@ font-size: 64px;
 /* 1200px / 16px = 75em */
 @media screen and (max-width: 50em) {
 
+
+  .image {
+    width:50%;
+  }
   .project-card {
     width: 100%;
   }
