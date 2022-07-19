@@ -382,7 +382,7 @@ border-radius: 5%
 max-width: 60rem;
 padding: 3rem;
 border-radius: 6px;
-box-shadow: 0px 2px 15px 2px var(--primary-shadow);
+box-shadow: 0px 2px 15px 2px var(--main-gray);
 max-height: 62rem;
 }
 
@@ -398,14 +398,14 @@ padding: 0.3rem 0;
 .skill {
   background-color: #fff;
   border-radius: 11px;
-  box-shadow: 0 3px 10px var(--secondary-shadow);
+  box-shadow: 0 3px 10px var(--main-gray);
   padding: 20px;
   margin: 10px;
 }
 .skill:hover {
   background-color: rgb(244, 244, 244);
   border-radius: 11px;
-  box-shadow: 0 3px 10px var(--secondary-shadow);
+  box-shadow: 0 3px 10px var(--main-gray);
   padding: 20px;
   margin: 10px;
 }
@@ -484,7 +484,7 @@ font-size: 64px;
   .project-card {
     background-color: #fff;
     border-radius: 11px;
-    box-shadow: 0 3px 10px var(--primary-shadow);
+    box-shadow: 0 3px 10px var(--main-gray);
     padding: 20px;
     margin: 10px;
     
@@ -588,7 +588,8 @@ font-size: 64px;
     text-align: center;
     transform: translateX(120%);
     transition: transform 0.5s ease-in;
-    border-radius: 1rem;
+    border-radius: 1.1rem;
+    box-shadow: 0 3px 10px var(--main-gray);
   }
 
 
