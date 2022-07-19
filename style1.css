@@ -230,7 +230,7 @@ color: var(--main-white);
   margin-bottom: 6rem;
 }
 
-@media (max-width: 30.625em) {
+@media (max-width: 60rem) {
   .projects-section {
     padding: 6rem 1rem;
   }
@@ -554,10 +554,10 @@ font-size: 64px;
   }
   h1 {
         font-size: 2rem;
-}
+  }
   nav h1 {
     font-size: 2rem;
-  } */
+  } 
 
   nav ul {
     position: fixed;
@@ -599,7 +599,7 @@ nav ul.show {
     }
     
   .bio h2 {
-    font-size: 1.8rem; 
+    font-size: 2rem; 
     line-height: 1.5rem;
     padding: 0.2rem 0;
     }
