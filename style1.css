@@ -540,8 +540,9 @@ font-size: 64px;
 
 /* 1200px / 16px = 75em */
 @media screen and (max-width: 50em) {
-  html {
-    font-size: 62.5%;
+
+  .project-card {
+    width: 100%;
   }
 
   nav{
@@ -606,6 +607,14 @@ nav ul.show {
     footer {
       flex-direction: column;
       text-align: center;
+    }
+
+    .socials {
+      flex-direction: row;
+      position: static;
+      bottom: 1%;
+      justify-content: center;
+      right: 0;
     }
 }
 
