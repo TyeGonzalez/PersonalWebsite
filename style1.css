@@ -460,6 +460,10 @@ font-size: 64px;
     justify-content: center;
   }
 
+  .project-img {
+    flex-shrink:2;
+  }
+
 
 
 .project-container p {
@@ -545,6 +549,10 @@ font-size: 64px;
     width: 100%;
   }
 
+  #projects {
+    padding: 2rem;
+  }
+
   nav{
     padding: 1.5rem 1rem;
   }
@@ -598,6 +606,13 @@ nav ul.show {
     padding: 0.2rem 0.2;
     }
     
+  .project-image {
+    justify-content: center;
+    max-width: 90%;
+    display: block;
+    padding: 0.2rem;
+  }
+
   .bio h2 {
     font-size: 2rem; 
     line-height: 1.5rem;
