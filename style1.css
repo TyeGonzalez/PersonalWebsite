@@ -458,8 +458,13 @@ font-size: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
-
   }
+
+@media screen and (max-width: 100em) {
+  .projects-container {
+    flex-direction: column;
+  }
+}
 
   .project-img {
     flex-shrink:2;
@@ -545,7 +550,10 @@ font-size: 64px;
 
 /* 1200px / 16px = 75em */
 @media screen and (max-width: 50em) {
-
+  .projects-container {
+    flex-direction: column;
+  }
+  
   #about{
     /* centre */
     margin: auto;
