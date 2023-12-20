@@ -458,6 +458,7 @@ font-size: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
+
   }
 
   .project-img {
@@ -656,4 +657,11 @@ nav ul.show {
 .col {
   flex: 1; /* additionally, equal width */
   padding: 1em;
+}
+
+
+@media screen and (max-width: 100em) {
+  .projects-container {
+    flex-direction: column;
+  }
 }
