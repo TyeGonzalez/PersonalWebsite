@@ -668,6 +668,12 @@ nav ul.show {
 }
 
 
+
+
+#sliders {
+  margin: 0 20px; /* Adjust the margin as needed */
+}
+
 @media screen and (max-width: 100em) {
   .projects-container {
     flex-direction: column;

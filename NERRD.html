@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Tye Gonzalez | Biophysics | Bioinformatics | Coding | Etc</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <script src="scripts.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+        <link rel="stylesheet" href="style1.css">
+        <!-- Favicons -->
+        <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="assets/apple-touch-icon.png"
+        />  
+        <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="assets/favicon-32x32.png"
+        />
+        <link rel="icon" type="image/x-icon" href="/assests/favicon.ico">
+
+
+        <!-- Animate CSS CDN -->
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
+
+        
+    </head>
+
+
+
+
+<!-- body start -->
+  <body>
+    <!-- Navbar -->
+
+    <nav class="nav">
+
+      <div class="title">
+        <a href="index.html">
+          <h1>Tye Gonzalez</h1>
+        </a>
+      </div>
+      <ul class="navigation">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="mailto:gonzaleztye@gmail.com" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="burger-menu" id="burger-menu">
+        <ion-icon class="bars" name="menu-outline"></ion-icon>
+      </button>
+    </nav>
+
+
+
+    <section>
+        <div id="Autorelaxationplot"></div>
+        <div id="sliders">
+          <label for="xmax_slider">xmax:</label>
+          <input type="range" id="xmax_slider" min="0" max="80" step="1" value="40" onchange="updatePlot()">
+          <span id="xmax_value">40</span>
+          <br>
+          <label for="tau_c_slider">tau_c:</label>
+          <input type="range" id="tau_c_slider" min="-6" max="-2" step="0.1" value="-5" onchange="updatePlot()">
+          <span id="tau_c_value">-5</span>
+          <br>
+          <label for="S2i_slider">S2i:</label>
+          <input type="range" id="S2i_slider" min="0.1" max="1" step="0.05" value="0.7" onchange="updatePlot()">
+          <span id="S2i_value">0.7</span>
+          <br>
+          <label for="r_eff_slider">r_eff:</label>
+          <input type="range" id="r_eff_slider" min="1" max="5" step="0.1" value="3" onchange="updatePlot()">
+          <span id="r_eff_value">3</span>
+          <br>
+          <label for="spin_freq_slider">spin_freq:</label>
+          <input type="range" id="spin_freq_slider" min="1" max="100" step="1" value="55" onchange="updatePlot()">
+          <span id="spin_freq_value">55</span>
+        </div>
+    
+        <script>updateAutoPlot()</script>
+
+      </section>
+
+      <section>
+        <div id="Crossrelaxationplot"></div>
+    
+        <script>updateCrossPlot()</script>
+
+      </section>
+
+  </body>
+</html>
