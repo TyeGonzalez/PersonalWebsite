@@ -38,39 +38,51 @@
   </head>
   <body>
   <div id="info">
-      <h2>Legendre Polynomials in 3D</h2>
-      <p>
-        Many physical problems on a sphere (like how a rank‑2 tensor affects a property such as chemical shift anisotropy) involve variations that follow a pattern. The second‑order Legendre polynomial is:
-      </p>
-      <p>
-        $$ P_2(\cos\theta)=\frac{3\cos^2\theta-1}{2} $$
-      </p>
-      <p>
-        Think of it this way: the sphere's points near the top (or bottom) are treated differently from those at the equator.
-        At the poles, where \( \cos\theta \) is \( \pm 1 \), \( P_2 \) is positive (leading to stretching), and at the equator, where \( \cos\theta=0 \), \( P_2 \) is negative (leading to compression). This creates a natural “two-peak” pattern that fits well with many spherical phenomena.
-      </p>
-      <hr/>
-      <h3>Quadrupolar Symmetry</h3>
-      <p>
-        The term "quadrupolar" describes a spatial pattern with a four-lobe (or four-region) distribution. For the Legendre polynomial:
-      </p>
-      <p>
-        $$ P_2(\cos\theta)=\frac{3\cos^2\theta-1}{2} $$
-      </p>
-      <p>
-        This function is positive at the poles (\( \cos\theta=\pm 1 \)) and negative at the equator (\( \cos\theta=0 \)). Such a pattern is characteristic of quadrupolar symmetry.
-      </p>
-      <ul>
-        <li><strong>Axial Symmetry:</strong> The pattern is symmetric around a particular axis (commonly the z‑axis). Rotating about this axis leaves the pattern unchanged.</li>
-        <li><strong>Sign Change Across a Nodal Plane:</strong> There’s a plane (or ring, such as the equator) where the function goes to zero and changes sign.</li>
-        <li><strong>Even Parity:</strong> The function remains unchanged if the direction along the symmetry axis is inverted.</li>
-      </ul>
-      <p>
-        In NMR, chemical shift anisotropy (CSA) is described by a second‑rank tensor. This means the angular dependence of CSA naturally follows quadrupolar symmetry (i.e., it varies like \( P_2(\cos\theta) \)) because the electron density around the nucleus is not uniform—it can be elongated or compressed along different directions.
-      </p>
-      <p>
-        In our visualization, we deform a sphere radially by a factor of \( 1 + \text{amplitude} \times P_2(\cos\theta) \). Adjust the slider to see how the sphere is stretched near the poles and squeezed at the equator.
-      </p>
+    <h2>Why a Two-Lobe Pattern?</h2>
+    <p>
+      The two-lobe (or quadrupolar) pattern is necessary because the physical effect—here, the chemical shielding—depends on the orientation relative to the magnetic field. In CSA:
+    </p>
+    <ul>
+      <li>
+        <strong>Maxima (Positive Values):</strong> When \( \theta = 0 \) or \( \theta = \pi \) (i.e. along the poles), \(\cos\theta = \pm 1\) and the polynomial becomes
+        $$ P_2(1) = \frac{3(1)-1}{2} = 1, $$
+        which represents the maximum positive effect.
+      </li>
+      <li>
+        <strong>Minima (Negative Values):</strong> At the equator, when \( \theta = \frac{\pi}{2} \), \(\cos\theta = 0\) and 
+        $$ P_2(0) = \frac{3(0)-1}{2} = -\frac{1}{2}, $$
+        which represents the maximum negative effect.
+      </li>
+      <li>
+        <strong>Zero Crossing (Nodal Plane):</strong> The function crosses zero when
+        $$ \frac{3\cos^2\theta-1}{2} = 0 \quad \Longrightarrow \quad \cos\theta = \pm\frac{1}{\sqrt{3}}. $$
+        These angles define the nodal planes where the CSA contribution changes sign.
+      </li>
+    </ul>
+  
+    <h2>How This Relates to CSA</h2>
+    <p>
+      The electron density around a nucleus is not uniform. Instead, it is typically elongated in one direction and compressed in the perpendicular directions due to bonding and molecular geometry. This anisotropy means that the nucleus "sees" a different magnetic environment depending on the angle relative to the principal axis of the electron distribution.
+    </p>
+    <p>
+      The two-lobe pattern of \(P_2(\cos\theta)\) reflects this behavior:
+    </p>
+    <ul>
+      <li>
+        <strong>Along the Poles (θ = 0 or π):</strong> The shielding effect is maximized (or minimized, depending on the sign convention) because the electron density is most different from the average in these directions.
+      </li>
+      <li>
+        <strong>At the Equator (θ = π/2):</strong> The shielding effect is reduced (or reversed) compared to the poles.
+      </li>
+      <li>
+        <strong>At the Nodal Planes (θ such that \(\cos\theta = \pm \frac{1}{\sqrt{3}}\)):</strong> The contribution from the anisotropy goes to zero, marking the transition between the two regions.
+      </li>
+    </ul>
+    <p>
+      In short, the two-lobe pattern is not arbitrary—it is a mathematical necessity arising from the symmetry of a second-rank tensor. It naturally encodes the fact that there are two distinct regions (lobes) of maximum effect (at the poles) and an opposite region (at the equator), with a smooth transition between them. This is why CSA, which reflects the directional dependence of chemical shielding, has this characteristic shape.
+    </p>
+  </body>
+     
     </div>
     <script type="module">
       import * as THREE from "three";
