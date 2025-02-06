@@ -102,6 +102,8 @@
 
       // Add a grid helper.
       const gridHelper = new THREE.GridHelper(20, 20);
+      gridHelper.position.y = -1;
+
       scene.add(gridHelper);
 
       // Create an arrow to represent the static magnetic field (B₀).
@@ -197,7 +199,7 @@
       // Animation loop: continuously spin the rotor about its own (local Y) axis.
       function animate() {
         requestAnimationFrame(animate);
-        rotorGroup.rotation.y += 0.2; // spinning motion
+        rotorGroup.rotation.y += 0.3; // spinning motion
         controls.update();
         renderer.render(scene, camera);
       }
