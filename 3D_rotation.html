@@ -207,6 +207,13 @@
       }
       updateTransformationMatrices();
 
+      // Create coordinate axes for reference.
+      const axesHelper = new THREE.AxesHelper(5);
+      scene.add(axesHelper);
+
+      
+
+
       // ---------------- Create Unit Sphere (Fat Lines) ----------------
       const sphereGeometry = new THREE.SphereGeometry(1, 32, 16);
       const sphereWireframe = new THREE.WireframeGeometry(sphereGeometry);
