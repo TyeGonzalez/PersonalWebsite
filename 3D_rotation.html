@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Interactive 3D Transformation with Emissive Vectors</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+    <!-- Import map for three.js -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/controls/OrbitControls.js";
+      import { Line2 } from "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/lines/Line2.js";
+      import { LineMaterial } from "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/lines/LineMaterial.js";
+      import { LineGeometry } from "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/lines/LineGeometry.js";
+      import { GUI } from "https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.module.js";
+
+      // ---------------- Custom FatArrowHelper ----------------
+      // This class creates an arrow using fat lines for the shaft and a cone for the head.
+      // An extra boolean parameter "useLighting" (default false) determines whether the arrow head
+      // uses a lit material (with emissive properties) or a basic material.
+      class FatArrowHelper extends THREE.Object3D {
+        constructor(dir, origin, length, color = 0xffff00, lineWidth = 2, headLength = 0.2, headWidth = 0.1, useLighting = false) {
+          super();
+          this.origin = origin.clone();
+          this.length = length;
+          this.headLength = headLength;
+          this.headWidth = headWidth;
+          this.lineWidth = lineWidth;
+          this.color = new THREE.Color(color);
+          this.dir = new THREE.Vector3().copy(dir).normalize();
+          this.useLighting = useLighting;
+
+          // Create the arrow shaft as a fat line.
+          const shaftStart = this.origin;
+          const shaftEnd = new THREE.Vector3().copy(this.dir)
+            .multiplyScalar(length - headLength)
+            .add(this.origin);
+          const positions = [
+            shaftStart.x, shaftStart.y, shaftStart.z,
+            shaftEnd.x, shaftEnd.y, shaftEnd.z
+          ];
+          this.lineGeometry = new LineGeometry();
+          this.lineGeometry.setPositions(positions);
+          this.lineMaterial = new LineMaterial({
+            color: this.color.getHex(),
+            linewidth: 5, // in world units
+            resolution: new THREE.Vector2(window.innerWidth, window.innerHeight)
+          });
+          this.shaft = new Line2(this.lineGeometry, this.lineMaterial);
+          this.add(this.shaft);
+
+          // Create the arrow head as a cone.
+          if (this.useLighting) {
+            // Use a material that responds to lighting and has an emissive color.
+            this.coneMaterial = new THREE.MeshStandardMaterial({
+              color: this.color.getHex(),
+              emissive: this.color.getHex(),
+              emissiveIntensity: 1
+            });
+          } else {
+            // Use a basic unlit material.
+            this.coneMaterial = new THREE.MeshBasicMaterial({ color: this.color.getHex() });
+          }
+          this.coneGeometry = new THREE.ConeGeometry(headWidth, headLength, 16);
+          this.cone = new THREE.Mesh(this.coneGeometry, this.coneMaterial);
+          // Position the cone at the tip (shifted so that its center is at length - headLength/2)
+          const conePos = new THREE.Vector3().copy(this.dir)
+            .multiplyScalar(length - headLength / 2)
+            .add(this.origin);
+          this.cone.position.copy(conePos);
+          // By default, the cone points up (+Y). Rotate it to point along this.dir.
+          this.cone.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), this.dir);
+          this.add(this.cone);
+        }
+        setDirection(dir) {
+          this.dir.copy(dir).normalize();
+          this.updateArrow();
+        }
+        setLength(length, headLength = this.headLength, headWidth = this.headWidth) {
+          this.length = length;
+          this.headLength = headLength;
+          this.headWidth = headWidth;
+          // Rebuild the cone geometry.
+          this.cone.geometry.dispose();
+          this.cone.geometry = new THREE.ConeGeometry(this.headWidth, this.headLength, 16);
+          this.updateArrow();
+        }
+        setColor(color) {
+          this.color.set(color);
+          this.lineMaterial.color.set(this.color);
+          if (this.useLighting) {
+            this.cone.material.color.set(this.color);
+            this.cone.material.emissive.set(this.color);
+          } else {
+            this.cone.material.color.set(this.color);
+          }
+        }
+        updateArrow() {
+          // Update shaft geometry.
+          const shaftStart = this.origin;
+          const shaftEnd = new THREE.Vector3().copy(this.dir)
+            .multiplyScalar(this.length - this.headLength)
+            .add(this.origin);
+          const positions = [
+            shaftStart.x, shaftStart.y, shaftStart.z,
+            shaftEnd.x, shaftEnd.y, shaftEnd.z
+          ];
+          this.lineGeometry.setPositions(positions);
+          if (this.lineGeometry.attributes.position) {
+            this.lineGeometry.attributes.position.needsUpdate = true;
+          }
+          // Update cone position and orientation.
+          const conePos = new THREE.Vector3().copy(this.dir)
+            .multiplyScalar(this.length - this.headLength / 2)
+            .add(this.origin);
+          this.cone.position.copy(conePos);
+          this.cone.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), this.dir);
+        }
+        updateResolution(width, height) {
+          this.lineMaterial.resolution.set(width, height);
+        }
+      }
+
+      // ---------------- Scene, Camera, Renderer, and Controls ----------------
+      // Set the background to black.
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x000000);
+
+      const camera = new THREE.PerspectiveCamera(
+        45,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      camera.position.set(5, 5, 10);
+      camera.lookAt(scene.position);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+
+      // ---------------- Add Lights ----------------
+      // Ambient and directional lights to illuminate the lit vectors.
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      scene.add(ambientLight);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(5, 10, 7.5);
+      scene.add(directionalLight);
+
+      // ---------------- GUI Parameters ----------------
+      const params = {
+        sx: 1.5,
+        sy: 1.5,
+        sz: 1.5,
+        rotationAngle: 0, // in degrees (rotation about Y)
+        vectorTheta: 0,    // in degrees (azimuthal angle on the unit sphere)
+        animateVector: true
+      };
+
+      // ---------------- Transformation Matrices ----------------
+      // Our transformation matrix is M = R_y * diag(sx, sy, sz)
+      // It maps the unit sphere to an ellipsoid.
+      const transformMatrix3 = new THREE.Matrix3();
+      const transformMatrix4 = new THREE.Matrix4();
+
+      function updateTransformationMatrices() {
+        const angleRad = THREE.MathUtils.degToRad(params.rotationAngle);
+        const cosA = Math.cos(angleRad);
+        const sinA = Math.sin(angleRad);
+        // Build the 3×3 matrix:
+        // [ sx*cosA,      0,   sz*sinA ]
+        // [       0,     sy,         0  ]
+        // [ -sx*sinA,     0,   sz*cosA ]
+        const m11 = params.sx * cosA, m12 = 0, m13 = params.sz * sinA;
+        const m21 = 0,             m22 = params.sy, m23 = 0;
+        const m31 = -params.sx * sinA, m32 = 0, m33 = params.sz * cosA;
+        transformMatrix3.set(
+          m11, m12, m13,
+          m21, m22, m23,
+          m31, m32, m33
+        );
+        transformMatrix4.set(
+          m11, m12, m13, 0,
+          m21, m22, m23, 0,
+          m31, m32, m33, 0,
+          0,   0,   0,   1
+        );
+      }
+      updateTransformationMatrices();
+
+      // ---------------- Create Unit Sphere (Fat Lines) ----------------
+      const sphereGeometry = new THREE.SphereGeometry(1, 32, 16);
+      const sphereWireframe = new THREE.WireframeGeometry(sphereGeometry);
+      const spherePositions = sphereWireframe.attributes.position.array;
+      const sphereLineGeometry = new LineGeometry();
+      sphereLineGeometry.setPositions(spherePositions);
+      const sphereLineMaterial = new LineMaterial({
+        color: 0x0000ff,
+        linewidth: 5,
+        transparent: true,
+        opacity: 0.1,
+        resolution: new THREE.Vector2(window.innerWidth, window.innerHeight)
+      });
+      const sphereLine = new Line2(sphereLineGeometry, sphereLineMaterial);
+      scene.add(sphereLine);
+
+      // ---------------- Create Ellipsoid (Fat Lines) ----------------
+      const ellipsoidLineGeometry = new LineGeometry();
+      function updateEllipsoidGeometry() {
+        const ellipsoidPositions = [];
+        const posAttr = sphereWireframe.attributes.position;
+        const posVec = new THREE.Vector3();
+        for (let i = 0; i < posAttr.count; i++) {
+          posVec.fromBufferAttribute(posAttr, i);
+          posVec.applyMatrix4(transformMatrix4);
+          ellipsoidPositions.push(posVec.x, posVec.y, posVec.z);
+        }
+        ellipsoidLineGeometry.setPositions(ellipsoidPositions);
+      }
+      updateEllipsoidGeometry();
+      const ellipsoidLineMaterial = new LineMaterial({
+        color: 0xff0000,
+        linewidth: 5,
+        transparent: true,
+        opacity: 0.1,
+        resolution: new THREE.Vector2(window.innerWidth, window.innerHeight)
+      });
+      const ellipsoidLine = new Line2(ellipsoidLineGeometry, ellipsoidLineMaterial);
+      scene.add(ellipsoidLine);
+
+      // ---------------- Create Fat Arrows for the Vectors ----------------
+      // The "main" vectors (original and transformed) will be lit (using emissive material)
+      // while the eigenvectors remain unlit.
+      const origin = new THREE.Vector3(0, 0, 0);
+      const phi = THREE.MathUtils.degToRad(60); // fixed polar angle (60°)
+      let vectorThetaRad = THREE.MathUtils.degToRad(params.vectorTheta);
+      let originalVector = new THREE.Vector3(
+        Math.sin(phi) * Math.cos(vectorThetaRad),
+        Math.sin(phi) * Math.sin(vectorThetaRad),
+        Math.cos(phi)
+      );
+      let transformedVector = originalVector.clone().applyMatrix3(transformMatrix3);
+
+      // Use "true" for useLighting so that these arrows show emissive lighting.
+      const originalArrow = new FatArrowHelper(
+        originalVector, origin, originalVector.length(), 0x00ff00, 2, 0.2, 0.1, true
+      );
+      scene.add(originalArrow);
+
+      const transformedArrow = new FatArrowHelper(
+        transformedVector, origin, transformedVector.length(), 0xffa500, 2, 0.2, 0.1, true
+      );
+      scene.add(transformedArrow);
+
+      // ---------------- Create a Connecting Line ----------------
+      // A thin yellow line connects the tip of the sphere vector to its mapped tip.
+      const connectGeometry = new THREE.BufferGeometry();
+      connectGeometry.setAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0, 0, 0, 0], 3));
+      const connectMaterial = new THREE.LineBasicMaterial({ color: 0xffff00 });
+      const connectLine = new THREE.Line(connectGeometry, connectMaterial);
+      scene.add(connectLine);
+
+      // ---------------- Add Eigenvector (Principal Axes) Visualization ----------------
+      // For M = R_y * diag(sx, sy, sz), the principal axes of the ellipsoid
+      // come from the columns of the rotation matrix R_y.
+      // These eigenvector arrows will use the default (unlit) material.
+      let eigenArrow1, eigenArrow2, eigenArrow3;
+      function createEigenArrows() {
+        const angleRad = THREE.MathUtils.degToRad(params.rotationAngle);
+        // v1 = R_y*(1,0,0) = (cos(angle), 0, -sin(angle))
+        const v1 = new THREE.Vector3(Math.cos(angleRad), 0, -Math.sin(angleRad)).normalize();
+        // v2 = R_y*(0,1,0) = (0, 1, 0)
+        const v2 = new THREE.Vector3(0, 1, 0).normalize();
+        // v3 = R_y*(0,0,1) = (sin(angle), 0, cos(angle))
+        const v3 = new THREE.Vector3(Math.sin(angleRad), 0, Math.cos(angleRad)).normalize();
+
+        // Remove old arrows if they exist.
+        if (eigenArrow1) scene.remove(eigenArrow1);
+        if (eigenArrow2) scene.remove(eigenArrow2);
+        if (eigenArrow3) scene.remove(eigenArrow3);
+
+        // Here we do not pass the lighting flag (or leave it as false).
+        eigenArrow1 = new FatArrowHelper(v1, origin, params.sx, 0xff00ff, 2, 0.2, 0.1);
+        eigenArrow2 = new FatArrowHelper(v2, origin, params.sy, 0xffff00, 2, 0.2, 0.1);
+        eigenArrow3 = new FatArrowHelper(v3, origin, params.sz, 0x00ffff, 2, 0.2, 0.1);
+
+        scene.add(eigenArrow1);
+        scene.add(eigenArrow2);
+        scene.add(eigenArrow3);
+      }
+      createEigenArrows();
+
+      function updateEigenArrows() {
+        const angleRad = THREE.MathUtils.degToRad(params.rotationAngle);
+        const v1 = new THREE.Vector3(Math.cos(angleRad), 0, -Math.sin(angleRad)).normalize();
+        const v2 = new THREE.Vector3(0, 1, 0).normalize();
+        const v3 = new THREE.Vector3(Math.sin(angleRad), 0, Math.cos(angleRad)).normalize();
+
+        eigenArrow1.setDirection(v1);
+        eigenArrow1.setLength(params.sx, 0.2, 0.1);
+        eigenArrow2.setDirection(v2);
+        eigenArrow2.setLength(params.sy, 0.2, 0.1);
+        eigenArrow3.setDirection(v3);
+        eigenArrow3.setLength(params.sz, 0.2, 0.1);
+      }
+
+      // ---------------- dat.GUI Setup ----------------
+      const gui = new GUI();
+      gui.add(params, "sx", 0.1, 5).name("Scale X").onChange(() => {
+        updateTransformationMatrices();
+        updateEllipsoidGeometry();
+        transformedVector.copy(originalVector).applyMatrix3(transformMatrix3);
+        transformedArrow.setLength(transformedVector.length(), 0.2, 0.1);
+        transformedArrow.setDirection(transformedVector);
+        updateEigenArrows();
+      });
+      gui.add(params, "sy", 0.1, 5).name("Scale Y").onChange(() => {
+        updateTransformationMatrices();
+        updateEllipsoidGeometry();
+        transformedVector.copy(originalVector).applyMatrix3(transformMatrix3);
+        transformedArrow.setLength(transformedVector.length(), 0.2, 0.1);
+        transformedArrow.setDirection(transformedVector);
+        updateEigenArrows();
+      });
+      gui.add(params, "sz", 0.1, 5).name("Scale Z").onChange(() => {
+        updateTransformationMatrices();
+        updateEllipsoidGeometry();
+        transformedVector.copy(originalVector).applyMatrix3(transformMatrix3);
+        transformedArrow.setLength(transformedVector.length(), 0.2, 0.1);
+        transformedArrow.setDirection(transformedVector);
+        updateEigenArrows();
+      });
+      gui.add(params, "rotationAngle", 0, 180).name("Rotation (°)").onChange(() => {
+        updateTransformationMatrices();
+        updateEllipsoidGeometry();
+        transformedVector.copy(originalVector).applyMatrix3(transformMatrix3);
+        transformedArrow.setLength(transformedVector.length(), 0.2, 0.1);
+        transformedArrow.setDirection(transformedVector);
+        updateEigenArrows();
+      });
+      gui.add(params, "vectorTheta", 0, 360).name("Vector θ (°)").onChange((value) => {
+        if (!params.animateVector) {
+          vectorThetaRad = THREE.MathUtils.degToRad(value);
+          originalVector.set(
+            Math.sin(phi) * Math.cos(vectorThetaRad),
+            Math.sin(phi) * Math.sin(vectorThetaRad),
+            Math.cos(phi)
+          );
+          originalArrow.setLength(originalVector.length(), 0.2, 0.1);
+          originalArrow.setDirection(originalVector);
+          transformedVector.copy(originalVector).applyMatrix3(transformMatrix3);
+          transformedArrow.setLength(transformedVector.length(), 0.2, 0.1);
+          transformedArrow.setDirection(transformedVector);
+        }
+      });
+      gui.add(params, "animateVector").name("Animate Vector");
+
+      // ---------------- Animation Loop ----------------
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+
+        if (params.animateVector) {
+          vectorThetaRad += 0.01;
+          params.vectorTheta = THREE.MathUtils.radToDeg(vectorThetaRad);
+          gui.updateDisplay();
+        }
+        originalVector.set(
+          Math.sin(phi) * Math.cos(vectorThetaRad),
+          Math.sin(phi) * Math.sin(vectorThetaRad),
+          Math.cos(phi)
+        );
+        originalArrow.setLength(originalVector.length(), 0.2, 0.1);
+        originalArrow.setDirection(originalVector);
+
+        transformedVector.copy(originalVector).applyMatrix3(transformMatrix3);
+        transformedArrow.setLength(transformedVector.length(), 0.2, 0.1);
+        transformedArrow.setDirection(transformedVector);
+
+        // Update connecting line.
+        const tipSphere = new THREE.Vector3().copy(originalVector);
+        const tipEllipsoid = new THREE.Vector3().copy(transformedVector);
+        connectGeometry.setAttribute('position', new THREE.Float32BufferAttribute([
+          tipSphere.x, tipSphere.y, tipSphere.z,
+          tipEllipsoid.x, tipEllipsoid.y, tipEllipsoid.z
+        ], 3));
+        connectGeometry.attributes.position.needsUpdate = true;
+
+        // Update resolution for fat line materials.
+        sphereLineMaterial.resolution.set(window.innerWidth, window.innerHeight);
+        ellipsoidLineMaterial.resolution.set(window.innerWidth, window.innerHeight);
+        originalArrow.updateResolution(window.innerWidth, window.innerHeight);
+        transformedArrow.updateResolution(window.innerWidth, window.innerHeight);
+        eigenArrow1.updateResolution(window.innerWidth, window.innerHeight);
+        eigenArrow2.updateResolution(window.innerWidth, window.innerHeight);
+        eigenArrow3.updateResolution(window.innerWidth, window.innerHeight);
+
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      // ---------------- Handle Window Resize ----------------
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    </script>
+  </body>
+</html>

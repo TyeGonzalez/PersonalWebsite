@@ -1,45 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Tye Gonzalez | Biophysics | Bioinformatics | Coding | Etc</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <script src="scripts.js"></script>
-       
-        <link rel="stylesheet" href="style1.css">
-        <!-- Favicons -->
-        <link
-        rel="apple-touch-icon"
-        sizes="180x180"
-        href="assets/apple-touch-icon.png"
-        />  
-        <link
-        rel="icon"
-        type="image/png"
-        sizes="32x32"
-        href="assets/favicon-32x32.png"
-        />
-        <link rel="icon" type="image/x-icon" href="/assests/favicon.ico">
+  <head>
+    <title>Tye Gonzalez | Biophysics | Bioinformatics | Coding | Etc</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="scripts.js"></script>
+   
+    <link rel="stylesheet" href="style1.css">
+    <!-- Favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/apple-touch-icon.png"
+    />  
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/favicon-32x32.png"
+    />
+    <link rel="icon" type="image/x-icon" href="/assests/favicon.ico">
 
+    <!-- Animate CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+  </head>
 
-        <!-- Animate CSS CDN -->
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-        />
-
-        
-    </head>
-
-
-
-<!-- body start -->
+  <!-- body start -->
   <body>
     <!-- Navbar -->
-
     <nav class="nav">
-
       <div class="title">
         <a href="index.html">
           <h1>Tye Gonzalez</h1>
@@ -58,90 +51,97 @@
 
     <!-- Hero Section -->
     <section class="hero" id="about">
-
-      <img
-        src="assets/IMG_2164.jpg"
-        class="hero-img"
-        id="hero-img"
-      />
-
+      <img src="assets/IMG_2164.jpg" class="hero-img" id="hero-img" />
       <div class="bio animate__animated animate__shakeX">
         <h2 class="bio-title">About Me</h2>
         <p class="bio-text">
           <p>
-            First year PhD in Biophysics, my research is dedicated to advancing NMR and MD methodologies, particularly in peptide and protein structure, computational modeling, and drug design. Skilled in Python, Matlab, and High-Performance Computing (HPC), I combine computational techniques with a strong foundation in laboratory sciences to drive innovations in biophysical research and therapeutic development.
+            Second year PhD in Biophysics, my research is dedicated to advancing NMR and MD methodologies, particularly in peptide and protein structure and dynamics, computational modeling, and drug design. Skilled in Python, Matlab, and High-Performance Computing (HPC), I combine computational techniques with advanced NMR methodologies to study protein structure and dynamics.
           </p>
+        </p>
       </div>
     </section>    
 
     <section class="skills" id="skills">
       <h2 class="skill-header">My Top Skills</h2>
-
-      
-        <div class="first-set animate__animated animate__pulse">
-          
-          <div class="skills-wrapper">
-            
-            <div class="skill">
-              <ion-icon name="logo-python" loading="lazy"> </ion-icon> 
-              <h2>Python</h2>
-            </div>
-            <div class="skill">
-              <ion-icon name="flask" loading="lazy"></ion-icon>
-              <h2>Bioinformatics</h2>
-            </div>
-            <div class="skill">
-              <ion-icon name="logo-electron" loading="lazy"> </ion-icon> 
-              <h2>Biophysics</h2>
-            </div>
-            <div class="skill">
-              <ion-icon name="logo-html5" loading="lazy"></ion-icon>
-              <h2>Web Dev</h2>
-            </div>
-    
-          
+      <div class="first-set animate__animated animate__pulse">
+        <div class="skills-wrapper">
+          <div class="skill">
+            <ion-icon name="logo-python" loading="lazy"></ion-icon> 
+            <h2>Python</h2>
+          </div>
+          <div class="skill">
+            <ion-icon name="flask" loading="lazy"></ion-icon>
+            <h2>Bioinformatics</h2>
+          </div>
+          <div class="skill">
+            <ion-icon name="logo-electron" loading="lazy"></ion-icon> 
+            <h2>Biophysics</h2>
+          </div>
+          <div class="skill">
+            <ion-icon name="logo-html5" loading="lazy"></ion-icon>
+            <h2>Web Dev</h2>
+          </div>
         </div>
-
-        
       </div>
     </section>
-
+<!-- Featured Publication Section -->
+<div class="featured-publication">
+  <h2 class="projects-title">Featured Publication</h2>
+  <div class="project-container project-card">
+    <div class="project-img">
+      <a href="https://onlinelibrary.wiley.com/doi/10.1002/anie.202411472">
+        <img src="assets/angewandte_cover.jpg" class="image">
+      </a>
+    </div>
+    <h3 class="project-title">Allostery at a Protein Interface</h3>
+    <ul class="project-details">
+      <li>
+        Motional properties of proteins govern recognition, catalysis, and regulation. The dynamics of tightly interacting residues can form intramolecular dynamic networks, dependencies fine-tuned by evolution to optimize a plethora of functional aspects. The constructive interaction of residues from different proteins to assemble intermolecular dynamic networks is a similarly likely case but has escaped thorough experimental assessment due to interfering association/dissociation dynamics. Here, we use fast-MAS solid-state 15N R1ρ NMR relaxation dispersion aided by molecular-dynamics simulations to mechanistically assess the hierarchy of individual μs timescale motions arising from a crystal-crystal contact, in the absence of translational motion. In contrast to the monomer, where particular mutations entail isolated perturbations, specific intermolecular interactions couple the motional properties between distant residues in the same protein. The mechanistic insights obtained from this conceptual work may improve our understanding on how intramolecular allostery can be tuned by intermolecular interactions via assembly of dynamic networks from previously isolated elements.
+      </li>
+    </ul>
+  </div>
+</div>
 
 
     <section class="projects" id="projects">
-      <h2 class="projects-title">Some of my Recent Projects</h2>
+      <h2 class="projects-title">Recent Projects</h2>
       <div class="projects-container">
+        <!-- Existing Project Card -->
         <div class="project-container project-card">
           <div class="project-img">
             <img src="assets/6CEI6.png" class="image"> 
           </div>
           <h3 class="project-title">Optimisation of Force Fields for NMR Structure determination</h3>
           <ul class="project-details">
-          <li>Optimising Force Fields parameters calculated from the Automated Topology Builder 3.0 for use with NMR structure determination software</li>
-          <li>Assignment of homonuclear NMR spectra</li>
-          <li>Analysis of various protein and peptide structures</li>
+            <li>Optimising Force Fields parameters calculated from the Automated Topology Builder 3.0 for use with NMR structure determination software</li>
+            <li>Assignment of homonuclear NMR spectra</li>
+            <li>Analysis of various protein and peptide structures</li>
           </ul>
         </div>
 
+        <!-- Existing Project Card -->
         <div class="project-container project-card">
           <div class="project-img">
-            <a href = "https://alcohol-stock-market.web.app" class="alcohol-stock-market"> <img src="assets/stockmarket.png" class="image"> </a>
+            <a href="https://alcohol-stock-market.web.app" class="alcohol-stock-market">
+              <img src="assets/stockmarket.png" class="image">
+            </a>
           </div>
           <h3 class="project-title">Stock Market Simulator</h3>
           <ul class="project-details">
-          <li>Fully functional stock market simulator</li>
-          <li>Uses Javascript, Firebase, and HTML/CSS</li>
-          <li>Live Database Integration</li>
-          <li>Features Google Authentication</li>
+            <li>Fully functional stock market simulator</li>
+            <li>Uses Javascript, Firebase, and HTML/CSS</li>
+            <li>Live Database Integration</li>
+            <li>Features Google Authentication</li>
           </ul>
         </div>
 
-        <!-- New Project -->
+        <!-- Existing Project Card -->
         <div class="project-container project-card">
           <div class="project-img">
-            <a href="https://dish-s-407402.web.app" class="dish-s">  
-            <img src="assets/ball_stick.png" class="image">
-          </a>
+            <a href="https://dish-s-407402.web.app" class="dish-s">
+              <img src="assets/ball_stick.png" class="image">
+            </a>
           </div>
           <h3 class="project-title">Web Server for Prediction of Disulfide Dihedral Angles Using Chemical Shifts</h3>
           <ul class="project-details">
@@ -152,80 +152,85 @@
           </ul>
         </div>
 
+        <!-- New Project Card: Magic Angle Spinning Visualisation -->
+        <div class="project-container project-card">
+          <div class="project-img">
+            <a href="mas.html" class="mas">
+              <img src="assets/MAS.png" class="image">
+            </a>
+          </div>
+          <h3 class="project-title">Magic Angle Spinning Visualisation</h3>
+          <ul class="project-details">
+            <li>Interactive Visualisation of Magic Angle Spinning (MAS) in NMR experiments</li>
+            <li>Visual representation of sample orientation and spinning dynamics</li>
+            <li>Educational tool to explore MAS techniques</li>
+          </ul>
+        </div>
+
+        <!-- New Project Card: Dipolar Coupling Visualisation -->
+        <div class="project-container project-card">
+          <div class="project-img">
+            <a href="dipolar-coupling.html" class="dipolar-coupling">
+              <img src="assets/dipolar_coupling.png" class="image">
+            </a>
+          </div>
+          <h3 class="project-title">Dipolar Coupling Visualisation</h3>
+          <ul class="project-details">
+            <li>Dynamic demonstration of dipolar interactions in NMR</li>
+            <li>Visualisation of why 54.7° is the "magic angle" in NMR</li>
+            <li>Interactive and user-friendly interface</li>
+          </ul>
+        </div>
+
+        <!-- New Project Card: 3D Matrix Rotation Visualisation -->
+        <div class="project-container project-card">
+          <div class="project-img">
+            <a href="3D_rotation.html" class="rotation-visualisation">
+              <img src="assets/3d_rotation.png" class="image">
+            </a>
+          </div>
+          <h3 class="project-title">3D Matrix Rotation Visualisation</h3>
+          <ul class="project-details">
+            <li>Visualisation of matrices as ellipsoids and their effect on vectors</li>
+            <li>Interactive 3D demonstration of rotational transformations</li>
+            <li>Provides insight into matrix operations in a geometric context</li>
+          </ul>
+        </div>
+
       </div>
     </section>
 
-
-
-
     <!-- Socials -->
-
     <div class="socials">
-      <a href="https://twitter.com/gonzalez_tye" target="_blank"
-        ><ion-icon name="logo-twitter"
-        alt="Twitter"
-        loading="lazy"
-        class="socicon"></ion-icon>
-          
+      <a href="https://twitter.com/gonzalez_tye" target="_blank">
+        <ion-icon name="logo-twitter" alt="Twitter" loading="lazy" class="socicon"></ion-icon>
       </a>
-      
-      
-
-
-      <a href="https://www.linkedin.com/in/tye-gonzalez" target="_blank"
-        ><ion-icon name="logo-linkedin"alt="Linkedin"
-        loading="lazy"
-        class="socicon"></ion-icon>
-         </a>
-
-
-         
-      <a href="https://github.com/TyeGonzalez" target="_blank"
-        ><ion-icon name="logo-github" alt="Github" class="socicon"></ion-icon>
+      <a href="https://www.linkedin.com/in/tye-gonzalez" target="_blank">
+        <ion-icon name="logo-linkedin" alt="Linkedin" loading="lazy" class="socicon"></ion-icon>
       </a>
-
-
-      <a href="mailto:gonzaleztye@gmail.com" target="_blank"
-        ><ion-icon name="mail" alt="Email" class="socicon"></ion-icon></a>
+      <a href="https://github.com/TyeGonzalez" target="_blank">
+        <ion-icon name="logo-github" alt="Github" class="socicon"></ion-icon>
+      </a>
+      <a href="mailto:gonzaleztye@gmail.com" target="_blank">
+        <ion-icon name="mail" alt="Email" class="socicon"></ion-icon>
+      </a>
     </div> 
     
     <footer>
-      <p class="copy">&copy; Copyright 2021</p>
-      <p class="copy">
-        Built by Tye Gonzalez
-      </p>
-    
-    
+      <p class="copy">Built by Tye Gonzalez</p>
     </footer>
-    <!-- Website scripts -->
 
-    
+    <!-- Website scripts -->
     <!-- scroll up icon -->
     <i class="scroll-up" id="scroll-up">
       <ion-icon name="arrow-up-circle" class="socicon up-arrow"></ion-icon>
     </i>
 
     <!-- Ion icons scripts -->
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      type="module"
-      src="scripts.js"
-    ></script>
-
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script type="module" src="scripts.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
-    
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   </body>
-<!-- body end -->
-
-
-
-
+  <!-- body end -->
 </html>
